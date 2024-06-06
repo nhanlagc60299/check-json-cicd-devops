@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    ports:
+      - "8080:8080"
+      - "51000:51000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # For Jenkins to communicate with the Docker daemon
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    networks:
+      - cicd_network
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: jenkins
+      POSTGRES_PASSWORD: jenkins
+      POSTGRES_DB: jenkins_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cicd_network
+
+volumes:
+  jenkins_home:
+  postgres_data:
+
+networks:
+  cicd_network:
+    driver: bridge
+
