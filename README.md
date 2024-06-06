@@ -1,6 +1,4 @@
-# Project Name
-
-This project contains the following files:
+#This project contains the following files:
 
 ## jenkins-docker-compose.yml
 
@@ -12,4 +10,4 @@ Docker compose script to install jenkins:lts with posgresSQL, with database mana
 
 ## start-jenkins.sh
 
-install jenkins with bash.
+run scripts with bash.
